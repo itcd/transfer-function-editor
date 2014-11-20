@@ -39,7 +39,7 @@ public:
     {
         if (TransferFunctionEditor->objectName().isEmpty())
             TransferFunctionEditor->setObjectName(QStringLiteral("TransferFunctionEditor"));
-        TransferFunctionEditor->resize(400, 300);
+        TransferFunctionEditor->resize(640, 500);
         action_Load_Transfer_Function = new QAction(TransferFunctionEditor);
         action_Load_Transfer_Function->setObjectName(QStringLiteral("action_Load_Transfer_Function"));
         centralWidget = new QWidget(TransferFunctionEditor);
@@ -51,7 +51,7 @@ public:
         TransferFunctionEditor->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(TransferFunctionEditor);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 400, 26));
+        menuBar->setGeometry(QRect(0, 0, 640, 26));
         menu_File = new QMenu(menuBar);
         menu_File->setObjectName(QStringLiteral("menu_File"));
         TransferFunctionEditor->setMenuBar(menuBar);
@@ -72,7 +72,7 @@ public:
 
     void retranslateUi(QMainWindow *TransferFunctionEditor)
     {
-        TransferFunctionEditor->setWindowTitle(QApplication::translate("TransferFunctionEditor", "TransferFunctionEditor", 0));
+        TransferFunctionEditor->setWindowTitle(QApplication::translate("TransferFunctionEditor", "Transfer Function Editor", 0));
         action_Load_Transfer_Function->setText(QApplication::translate("TransferFunctionEditor", "&Load Transfer Function...", 0));
         menu_File->setTitle(QApplication::translate("TransferFunctionEditor", "&File", 0));
     } // retranslateUi
