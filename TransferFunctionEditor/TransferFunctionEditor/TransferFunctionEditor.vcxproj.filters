@@ -24,12 +24,12 @@
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
     <Filter Include="Generated Files\Debug">
-      <UniqueIdentifier>{d03594f3-8c73-4fde-9863-be101d446c7f}</UniqueIdentifier>
+      <UniqueIdentifier>{9270eab3-a801-410a-90ce-8a5488954bbf}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
     <Filter Include="Generated Files\Release">
-      <UniqueIdentifier>{e49706e1-21f8-4d8f-87a4-dc18c50072bd}</UniqueIdentifier>
+      <UniqueIdentifier>{74ad5583-7804-49fe-af47-82fd427c036e}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
@@ -50,10 +50,7 @@
     <ClCompile Include="GeneratedFiles\qrc_transferfunctioneditor.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="tinyxml2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="edge.cpp">
+    <ClCompile Include="node.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="graphwidget.cpp">
@@ -65,7 +62,7 @@
     <ClCompile Include="GeneratedFiles\Release\moc_graphwidget.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="node.cpp">
+    <ClCompile Include="edge.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_TransferFunctionView.cpp">
@@ -73,6 +70,9 @@
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_TransferFunctionView.cpp">
       <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxml2.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -96,13 +96,13 @@
     <ClInclude Include="GeneratedFiles\ui_transferfunctioneditor.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="tinyxml2.h">
+    <ClInclude Include="node.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="edge.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="node.h">
+    <ClInclude Include="tinyxml2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

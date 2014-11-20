@@ -9,12 +9,6 @@ http://freeglut.sourceforge.net/
 GLFW 3.0.4 (December 31, 2013)
 http://www.glfw.org/
 
-GLM 0.9.4.3 (20/03/2013)
-http://www.g-truc.net/post-project-glm.html
-
-GLI 0.3.0.3 (05/04/2011)
-http://www.g-truc.net/post-project-gli.html
-
 AntTweakBar 1.16 (2013/03/21)
 http://www.antisphere.com/Wiki/tools:anttweakbar
 
@@ -29,3 +23,16 @@ https://code.google.com/p/nvidia-widgets/
 
 NVIDIA GameWorks OpenGL Samples 1.2 (Jul 08 2014)
 https://developer.nvidia.com/gameworks-opengl-samples
+
+OpenGL Mathematics (GLM)
+
+There are two versions
+A newer version is in directory glm:
+GLM 0.9.5.4 (21/06/2014)
+http://glm.g-truc.net/0.9.5/index.html
+
+An older version that works with GLI is in directory glm_gli:
+GLM 0.9.4.3 (20/03/2013)
+http://www.g-truc.net/post-project-glm.html
+GLI 0.3.0.3 (05/04/2011)
+http://www.g-truc.net/post-project-gli.html
