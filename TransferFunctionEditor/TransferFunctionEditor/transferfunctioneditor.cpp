@@ -29,4 +29,5 @@ void TransferFunctionEditor::on_action_Load_Transfer_Function_triggered()
 		LoadXML(buffer);
 		std::cout<<numIntensities<<" "<<intensities.size()<<" "<<colors.size()<<std::endl;
 	}
+	widget.drawTransferFunction(numIntensities, colors, intensities);
 }

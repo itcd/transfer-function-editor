@@ -7,6 +7,7 @@
 #include "glm/glm.hpp"
 #include "tinyxml2.h"
 #include "graphwidget.h"
+#include "TransferFunctionView.h"
 
 namespace Ui {
 class TransferFunctionEditor;
@@ -61,7 +62,7 @@ private slots:
 private:
     Ui::TransferFunctionEditor *ui;
 
-    GraphWidget widget;
+    TransferFunctionView widget;
     int numIntensities;
     std::vector<glm::vec4> colors;
     std::vector<float> intensities;
