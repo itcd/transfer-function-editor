@@ -1,7 +1,7 @@
 # My own specified ignores before generic Visual Studio Ignores
 Samples/
 External Resources/
-
+build-*/
 
 
 ## Ignore Visual Studio temporary files, build results, and
