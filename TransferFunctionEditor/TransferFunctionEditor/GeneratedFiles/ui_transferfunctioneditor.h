@@ -13,8 +13,10 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
@@ -22,46 +24,63 @@
 
 QT_BEGIN_NAMESPACE
 
-class Ui_TransferFunctionEditorClass
+class Ui_TransferFunctionEditor
 {
 public:
-    QMenuBar *menuBar;
-    QToolBar *mainToolBar;
+    QAction *action_Load_Transfer_Function;
     QWidget *centralWidget;
+    QHBoxLayout *horizontalLayout;
+    QMenuBar *menuBar;
+    QMenu *menu_File;
+    QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
-    void setupUi(QMainWindow *TransferFunctionEditorClass)
+    void setupUi(QMainWindow *TransferFunctionEditor)
     {
-        if (TransferFunctionEditorClass->objectName().isEmpty())
-            TransferFunctionEditorClass->setObjectName(QStringLiteral("TransferFunctionEditorClass"));
-        TransferFunctionEditorClass->resize(600, 400);
-        menuBar = new QMenuBar(TransferFunctionEditorClass);
-        menuBar->setObjectName(QStringLiteral("menuBar"));
-        TransferFunctionEditorClass->setMenuBar(menuBar);
-        mainToolBar = new QToolBar(TransferFunctionEditorClass);
-        mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
-        TransferFunctionEditorClass->addToolBar(mainToolBar);
-        centralWidget = new QWidget(TransferFunctionEditorClass);
+        if (TransferFunctionEditor->objectName().isEmpty())
+            TransferFunctionEditor->setObjectName(QStringLiteral("TransferFunctionEditor"));
+        TransferFunctionEditor->resize(400, 300);
+        action_Load_Transfer_Function = new QAction(TransferFunctionEditor);
+        action_Load_Transfer_Function->setObjectName(QStringLiteral("action_Load_Transfer_Function"));
+        centralWidget = new QWidget(TransferFunctionEditor);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        TransferFunctionEditorClass->setCentralWidget(centralWidget);
-        statusBar = new QStatusBar(TransferFunctionEditorClass);
+        horizontalLayout = new QHBoxLayout(centralWidget);
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        TransferFunctionEditor->setCentralWidget(centralWidget);
+        menuBar = new QMenuBar(TransferFunctionEditor);
+        menuBar->setObjectName(QStringLiteral("menuBar"));
+        menuBar->setGeometry(QRect(0, 0, 400, 26));
+        menu_File = new QMenu(menuBar);
+        menu_File->setObjectName(QStringLiteral("menu_File"));
+        TransferFunctionEditor->setMenuBar(menuBar);
+        mainToolBar = new QToolBar(TransferFunctionEditor);
+        mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
+        TransferFunctionEditor->addToolBar(Qt::TopToolBarArea, mainToolBar);
+        statusBar = new QStatusBar(TransferFunctionEditor);
         statusBar->setObjectName(QStringLiteral("statusBar"));
-        TransferFunctionEditorClass->setStatusBar(statusBar);
+        TransferFunctionEditor->setStatusBar(statusBar);
 
-        retranslateUi(TransferFunctionEditorClass);
+        menuBar->addAction(menu_File->menuAction());
+        menu_File->addAction(action_Load_Transfer_Function);
 
-        QMetaObject::connectSlotsByName(TransferFunctionEditorClass);
+        retranslateUi(TransferFunctionEditor);
+
+        QMetaObject::connectSlotsByName(TransferFunctionEditor);
     } // setupUi
 
-    void retranslateUi(QMainWindow *TransferFunctionEditorClass)
+    void retranslateUi(QMainWindow *TransferFunctionEditor)
     {
-        TransferFunctionEditorClass->setWindowTitle(QApplication::translate("TransferFunctionEditorClass", "TransferFunctionEditor", 0));
+        TransferFunctionEditor->setWindowTitle(QApplication::translate("TransferFunctionEditor", "TransferFunctionEditor", 0));
+        action_Load_Transfer_Function->setText(QApplication::translate("TransferFunctionEditor", "&Load Transfer Function...", 0));
+        menu_File->setTitle(QApplication::translate("TransferFunctionEditor", "&File", 0));
     } // retranslateUi
 
 };
 
 namespace Ui {
-    class TransferFunctionEditorClass: public Ui_TransferFunctionEditorClass {};
+    class TransferFunctionEditor: public Ui_TransferFunctionEditor {};
 } // namespace Ui
 
 QT_END_NAMESPACE

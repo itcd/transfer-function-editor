@@ -1,10 +1,11 @@
 #include "transferfunctioneditor.h"
-#include <QtWidgets/QApplication>
+#include <QApplication>
 
 int main(int argc, char *argv[])
 {
-	QApplication a(argc, argv);
-	TransferFunctionEditor w;
-	w.show();
-	return a.exec();
+    QApplication a(argc, argv);
+    TransferFunctionEditor w;
+    w.show();
+
+    return a.exec();
 }
