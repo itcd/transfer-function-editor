@@ -7,6 +7,10 @@ TransferFunctionEditor::TransferFunctionEditor(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->horizontalLayout->addWidget(&widget);
+
+	LoadXML("../../transferfuncs/nucleon.tfi");
+	widget.setTransferFunction(numIntensities, colors, intensities);
+	widget.drawTransferFunction();
 }
 
 TransferFunctionEditor::~TransferFunctionEditor()
@@ -17,7 +21,7 @@ TransferFunctionEditor::~TransferFunctionEditor()
 void TransferFunctionEditor::on_action_Load_Transfer_Function_triggered()
 {
 	QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
-		"D:/document/work/python-volume-rendering/transferfuncs/nucleon.tfi",
+		"../../transferfuncs/nucleon.tfi",
 		tr("Voreen Transfer Function (*.tfi) ;; All (*.*)"));
 	std::cout<<"size"<<fileName.size()<<std::endl;
 	if (fileName.size() > 0)
@@ -26,9 +30,11 @@ void TransferFunctionEditor::on_action_Load_Transfer_Function_triggered()
 		char* buffer = array.data();
 		
 		std::cout<<buffer<<" loaded"<<std::endl;
+		intensities.clear();
+		colors.clear();
 		LoadXML(buffer);
 		std::cout<<numIntensities<<" "<<intensities.size()<<" "<<colors.size()<<std::endl;
+		widget.setTransferFunction(numIntensities, colors, intensities);
+		widget.drawTransferFunction();
 	}
-	widget.setTransferFunction(numIntensities, colors, intensities);
-	widget.drawTransferFunction();
 }
