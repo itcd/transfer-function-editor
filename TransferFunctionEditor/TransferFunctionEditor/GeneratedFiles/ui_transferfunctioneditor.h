@@ -13,13 +13,16 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QDockWidget>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -27,27 +30,43 @@ QT_BEGIN_NAMESPACE
 class Ui_TransferFunctionEditor
 {
 public:
-    QAction *action_Load_Transfer_Function;
+    QAction *action_Open_Transfer_Function;
+    QAction *action_Save_Transfer_Function;
     QWidget *centralWidget;
     QHBoxLayout *horizontalLayout;
+    QVBoxLayout *verticalLayout;
     QMenuBar *menuBar;
     QMenu *menu_File;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
+    QDockWidget *dockWidget;
+    QWidget *dockWidgetContents;
+    QHBoxLayout *horizontalLayout_2;
+    QPushButton *makeRampButton;
+    QPushButton *makeLevelButton;
 
     void setupUi(QMainWindow *TransferFunctionEditor)
     {
         if (TransferFunctionEditor->objectName().isEmpty())
             TransferFunctionEditor->setObjectName(QStringLiteral("TransferFunctionEditor"));
-        TransferFunctionEditor->resize(640, 500);
-        action_Load_Transfer_Function = new QAction(TransferFunctionEditor);
-        action_Load_Transfer_Function->setObjectName(QStringLiteral("action_Load_Transfer_Function"));
+        TransferFunctionEditor->resize(640, 480);
+        action_Open_Transfer_Function = new QAction(TransferFunctionEditor);
+        action_Open_Transfer_Function->setObjectName(QStringLiteral("action_Open_Transfer_Function"));
+        action_Save_Transfer_Function = new QAction(TransferFunctionEditor);
+        action_Save_Transfer_Function->setObjectName(QStringLiteral("action_Save_Transfer_Function"));
         centralWidget = new QWidget(TransferFunctionEditor);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         horizontalLayout = new QHBoxLayout(centralWidget);
         horizontalLayout->setSpacing(6);
         horizontalLayout->setContentsMargins(11, 11, 11, 11);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        horizontalLayout->setContentsMargins(0, 0, 0, 0);
+        verticalLayout = new QVBoxLayout();
+        verticalLayout->setSpacing(6);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+
+        horizontalLayout->addLayout(verticalLayout);
+
         TransferFunctionEditor->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(TransferFunctionEditor);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -61,9 +80,31 @@ public:
         statusBar = new QStatusBar(TransferFunctionEditor);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         TransferFunctionEditor->setStatusBar(statusBar);
+        dockWidget = new QDockWidget(TransferFunctionEditor);
+        dockWidget->setObjectName(QStringLiteral("dockWidget"));
+        dockWidgetContents = new QWidget();
+        dockWidgetContents->setObjectName(QStringLiteral("dockWidgetContents"));
+        horizontalLayout_2 = new QHBoxLayout(dockWidgetContents);
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
+        makeRampButton = new QPushButton(dockWidgetContents);
+        makeRampButton->setObjectName(QStringLiteral("makeRampButton"));
+
+        horizontalLayout_2->addWidget(makeRampButton);
+
+        makeLevelButton = new QPushButton(dockWidgetContents);
+        makeLevelButton->setObjectName(QStringLiteral("makeLevelButton"));
+
+        horizontalLayout_2->addWidget(makeLevelButton);
+
+        dockWidget->setWidget(dockWidgetContents);
+        TransferFunctionEditor->addDockWidget(static_cast<Qt::DockWidgetArea>(8), dockWidget);
 
         menuBar->addAction(menu_File->menuAction());
-        menu_File->addAction(action_Load_Transfer_Function);
+        menu_File->addAction(action_Open_Transfer_Function);
+        menu_File->addAction(action_Save_Transfer_Function);
 
         retranslateUi(TransferFunctionEditor);
 
@@ -73,8 +114,11 @@ public:
     void retranslateUi(QMainWindow *TransferFunctionEditor)
     {
         TransferFunctionEditor->setWindowTitle(QApplication::translate("TransferFunctionEditor", "Transfer Function Editor", 0));
-        action_Load_Transfer_Function->setText(QApplication::translate("TransferFunctionEditor", "&Load Transfer Function...", 0));
+        action_Open_Transfer_Function->setText(QApplication::translate("TransferFunctionEditor", "&Open Transfer Function...", 0));
+        action_Save_Transfer_Function->setText(QApplication::translate("TransferFunctionEditor", "&Save Transfer Function...", 0));
         menu_File->setTitle(QApplication::translate("TransferFunctionEditor", "&File", 0));
+        makeRampButton->setText(QApplication::translate("TransferFunctionEditor", "make ramp", 0));
+        makeLevelButton->setText(QApplication::translate("TransferFunctionEditor", "make level", 0));
     } // retranslateUi
 
 };
