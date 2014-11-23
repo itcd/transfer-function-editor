@@ -9,17 +9,23 @@
 #include <QStyleOption>
 #include <QColor>
 #include <QMenu>
+#include <Qt>
+#include <iostream>
 #include "edge.h"
 #include "node.h"
 #include "graphwidget.h"
 
+//class TransferFunctionView;
+//typedef void(TransferFunctionView::*myfunc)(int);
+
 class ControlPoint : public Node
 {
+	//Q_OBJECT
 public:
-
-	ControlPoint(GraphWidget *graphWidget, QColor &color = QColor(Qt::yellow)) : Node(graphWidget), graph(graphWidget)
+	ControlPoint(GraphWidget *graphWidget, int index, QColor &color = QColor(Qt::yellow)) : Node(static_cast<GraphWidget*>(graphWidget)), graph(graphWidget)
 	{
 		this->color = color;
+		this->index = index;
 	}
 
 	virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -46,20 +52,30 @@ public:
 	}
 
 protected:
+	virtual void mousePressEvent(QGraphicsSceneMouseEvent * event)
+	{
+		if (event->button() == Qt::MouseButton::RightButton)
+		{
+			std::cout << "mousePressEvent RightButton" << std::endl;
+			graph->removeControlPoint(index);
+		}
+	}
+
 	virtual void contextMenuEvent(QGraphicsSceneContextMenuEvent * event)
 	{
-		std::cout << "pos " << event->pos().x() << " " << event->pos().y() << std::endl;
-		std::cout << "screenPos " << event->screenPos().x() << " " << event->screenPos().y() << std::endl;
-		QMenu menu;
-		QAction *removeAction = menu.addAction("Remove");
-		QAction *markAction = menu.addAction("Mark");
-		QAction *selectedAction = menu.exec(event->screenPos());
-		// ...
+		QGraphicsItem::contextMenuEvent(event);
+		//std::cout << "pos " << event->pos().x() << " " << event->pos().y() << std::endl;
+		//std::cout << "screenPos " << event->screenPos().x() << " " << event->screenPos().y() << std::endl;
+		//QMenu menu;
+		//QAction *removeAction = menu.addAction("Remove");
+		//QAction *markAction = menu.addAction("Mark");
+		//QAction *selectedAction = menu.exec(event->screenPos());
 	}
 
 private:
 	GraphWidget *graph;
 	QColor color;
+	int index;
 };
 
 #endif // ControlPoint_H

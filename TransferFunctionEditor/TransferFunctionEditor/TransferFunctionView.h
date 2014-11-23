@@ -14,8 +14,6 @@
 #include "ControlEdge.h"
 #include "TransferFunctionScene.h"
 
-class Node;
-
 //! [0]
 class TransferFunctionView : public GraphWidget
 {
@@ -52,7 +50,7 @@ public:
 		for (int i=0; i<numIntensities; i++)
 		{
 			auto c = colors[i];
-			auto node1 = new ControlPoint(this, QColor(int(c.r * 255), int(c.g * 255), int(c.b * 255)));
+			auto node1 = new ControlPoint(this, i, QColor(int(c.r * 255), int(c.g * 255), int(c.b * 255)));
 			scene()->addItem(node1);
 			node1->setPos(intensities[i] * size.width(), (1 - c.a) * size.height());
 			if (i>=1)
@@ -61,6 +59,15 @@ public:
 			}
 			node0 = node1;
 		}
+	}
+
+	virtual void removeControlPoint(int index)
+	{
+		std::cout << "removeControlPoint" << std::endl;
+		colors.erase(colors.begin() + index);
+		intensities.erase(intensities.begin() + index);
+		numIntensities = intensities.size();
+		drawTransferFunction();
 	}
 
 protected:

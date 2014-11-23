@@ -55,6 +55,8 @@ public:
 
     void itemMoved();
 
+	virtual void removeControlPoint(int index){}
+
 public slots:
     void shuffle();
     void zoomIn();
