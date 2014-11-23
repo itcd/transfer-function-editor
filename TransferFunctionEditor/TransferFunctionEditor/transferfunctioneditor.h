@@ -7,6 +7,8 @@
 #include "glm/glm.hpp"
 #include "tinyxml2.h"
 #include "graphwidget.h"
+#include "ControlEdge.h"
+#include "ControlPoint.h"
 #include "TransferFunctionView.h"
 
 namespace Ui {

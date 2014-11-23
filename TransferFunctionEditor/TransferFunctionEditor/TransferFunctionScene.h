@@ -5,6 +5,7 @@
 
 #include <QMenu>
 #include <QGraphicsScene>
+#include <QGraphicsSceneContextMenuEvent>
 
 class TransferFunctionScene : public QGraphicsScene
 {

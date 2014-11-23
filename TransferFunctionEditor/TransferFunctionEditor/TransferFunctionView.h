@@ -14,7 +14,10 @@
 #include "ControlEdge.h"
 #include "TransferFunctionScene.h"
 
-//! [0]
+//class ControlPoint;
+//class ControlEdge;
+
+//! [0];
 class TransferFunctionView : public GraphWidget
 {
     Q_OBJECT
