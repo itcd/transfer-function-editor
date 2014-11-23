@@ -228,6 +228,7 @@
     <ClInclude Include="edge.h" />
     <ClInclude Include="GeneratedFiles\ui_transferfunctioneditor.h" />
     <ClInclude Include="tinyxml2.h" />
+    <ClInclude Include="TransferFunctionScene.h" />
     <CustomBuild Include="TransferFunctionView.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing TransferFunctionView.h...</Message>

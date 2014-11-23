@@ -111,5 +111,8 @@
     <ClInclude Include="ControlEdge.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TransferFunctionScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

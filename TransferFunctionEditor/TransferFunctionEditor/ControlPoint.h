@@ -8,6 +8,7 @@
 #include <QPainter>
 #include <QStyleOption>
 #include <QColor>
+#include <QMenu>
 #include "edge.h"
 #include "node.h"
 #include "graphwidget.h"
@@ -19,10 +20,6 @@ public:
 	ControlPoint(GraphWidget *graphWidget, QColor &color = QColor(Qt::yellow)) : Node(graphWidget), graph(graphWidget)
 	{
 		this->color = color;
-	}
-
-	virtual ~ControlPoint()
-	{
 	}
 
 	virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -47,6 +44,19 @@ public:
 		painter->setPen(QPen(Qt::black, 0));
 		painter->drawEllipse(-10, -10, 20, 20);
 	}
+
+protected:
+	virtual void contextMenuEvent(QGraphicsSceneContextMenuEvent * event)
+	{
+		std::cout << "pos " << event->pos().x() << " " << event->pos().y() << std::endl;
+		std::cout << "screenPos " << event->screenPos().x() << " " << event->screenPos().y() << std::endl;
+		QMenu menu;
+		QAction *removeAction = menu.addAction("Remove");
+		QAction *markAction = menu.addAction("Mark");
+		QAction *selectedAction = menu.exec(event->screenPos());
+		// ...
+	}
+
 private:
 	GraphWidget *graph;
 	QColor color;

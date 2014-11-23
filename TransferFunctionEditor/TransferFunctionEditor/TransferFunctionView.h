@@ -5,11 +5,14 @@
 
 #include <iostream>
 #include <QResizeEvent>
+#include <QMenu>
+#include <QSharedPointer>
 #include <glm/glm.hpp>
 #include "graphwidget.h"
 #include "node.h"
 #include "ControlPoint.h"
 #include "ControlEdge.h"
+#include "TransferFunctionScene.h"
 
 class Node;
 
@@ -22,12 +25,16 @@ public:
     TransferFunctionView(QWidget *parent = 0) : GraphWidget(parent)
 	{
 		auto size = this->size();
+		auto tfScene = static_cast<QGraphicsScene*>(new TransferFunctionScene(this));
+		this->setScene(tfScene);
 		std::cout << "TransferFunctionView" << std::endl;
 		std::cout << "QGraphicsView size " << size.width() << " " << size.height() << std::endl;
 		scene()->setSceneRect(0, 0, size.width(), size.height());
 		QRectF rect = this->sceneRect();
 		std::cout << "Scene Rect " << rect.left() << " " << rect.top()<<" "<<rect.width()<<" "<<rect.height() << std::endl;
 		scene()->clear();
+		std::cout <<"tfScene "<< tfScene << std::endl;
+		std::cout <<"scene() "<< scene() << std::endl;
 	}
 
 	void setTransferFunction(int numIntensities, std::vector<glm::vec4> colors, std::vector<float> intensities)
@@ -57,7 +64,7 @@ public:
 	}
 
 protected:
-	void resizeEvent(QResizeEvent * event)
+	virtual void resizeEvent(QResizeEvent * event)
 	{
 		auto size = event->size();
 		std::cout << "resizeEvent" << std::endl;
@@ -68,7 +75,7 @@ protected:
 		drawTransferFunction();
 	}
 
-	void drawBackground(QPainter *painter, const QRectF &rect)
+	virtual void drawBackground(QPainter *painter, const QRectF &rect)
 	{
 		//Q_UNUSED(rect);
 
@@ -88,9 +95,10 @@ protected:
 		//painter->fillRect(rect.intersected(sceneRect), gradient);
 		//painter->setBrush(Qt::NoBrush);
 		painter->drawRect(sceneRect);
+		std::cout << "drawBackground sceneRect " << sceneRect.left() << " " << sceneRect.top() << " " << sceneRect.width() << " " << sceneRect.height() << std::endl;
 	}
 
-	void timerEvent(QTimerEvent *event){}
+	virtual void timerEvent(QTimerEvent *event){}
 
 private:
 	int numIntensities;

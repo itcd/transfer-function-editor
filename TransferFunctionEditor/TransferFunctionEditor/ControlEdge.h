@@ -18,8 +18,7 @@ public:
 	{
 	}
 
-protected:
-	void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+	virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 	{
 		if (!source || !dest)
 			return;
