@@ -20,8 +20,6 @@
 //! [0];
 class TransferFunctionView : public GraphWidget
 {
-    //Q_OBJECT
-
 public:
     TransferFunctionView(QWidget *parent = 0) : GraphWidget(parent)
 	{
