@@ -10,22 +10,24 @@
 #include <QColor>
 #include <QMenu>
 #include <QPoint>
+#include <QColorDialog>
 #include <iostream>
 #include "edge.h"
 #include "node.h"
 #include "graphwidget.h"
 
-//class TransferFunctionView;
-//typedef void(TransferFunctionView::*myfunc)(int);
-
 class ControlPoint : public Node
 {
-	//Q_OBJECT
 public:
 	ControlPoint(GraphWidget *graphWidget, int index, QColor &color = QColor(Qt::yellow)) : Node(static_cast<GraphWidget*>(graphWidget))
 	{
 		this->color = color;
 		this->index = index;
+	}
+
+	int getIndex()
+	{
+		return this->index;
 	}
 
 	virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -54,33 +56,9 @@ public:
 protected:
 	virtual void mousePressEvent(QGraphicsSceneMouseEvent * event)
 	{
-		std::cout << "ControlPoint::mousePressEvent" << std::endl;
 		Node::mousePressEvent(event);
-		if (event->button() == Qt::MouseButton::RightButton)
-		{
-			{
-				auto p = event->screenPos();
-				std::cout << "QGraphicsSceneMouseEvent screenPos " << p.x() << "," << p.y() << "\t";
-			}
-			{
-				auto p = event->scenePos();
-				std::cout << "scenePos " << p.x() << "," << p.y() << "\t";
-			}
-			{
-				auto p = event->pos();
-				std::cout << "pos " << p.x() << "," << p.y() << std::endl;
-			}
-			{
-				auto p = this->scenePos();
-				std::cout << "QGraphicsItem scenePos " << p.x() << "," << p.y() << "\t";
-			}
-			{
-				auto p = this->pos();
-				std::cout << "pos " << p.x() << "," << p.y() << std::endl;
-			}
-			graph->removeControlPoint(index);
-			event->accept();
-		}
+		graph->setSelectedIndex(index);
+		event->accept();
 	}
 
 	virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent * event)
@@ -97,21 +75,43 @@ protected:
 		}
 	}
 
-	//virtual void contextMenuEvent(QGraphicsSceneContextMenuEvent * event)
-	//{
-	//	QGraphicsItem::contextMenuEvent(event);
-	//	//std::cout << "pos " << event->pos().x() << " " << event->pos().y() << std::endl;
-	//	//std::cout << "screenPos " << event->screenPos().x() << " " << event->screenPos().y() << std::endl;
-	//	QMenu menu;
-	//	QAction *removeAction = menu.addAction("Remove");
-	//	QAction *changeAction = menu.addAction("Change color");
-	//	QAction *optimizeAction = menu.addAction("Optimize for intensity");
-	//	QAction *selectedAction = menu.exec(event->screenPos());
-	//	event->accept();
-	//}
+	virtual void contextMenuEvent(QGraphicsSceneContextMenuEvent * event)
+	{
+		QGraphicsItem::contextMenuEvent(event);
+		QMenu menu;
+		QAction *removeAction = menu.addAction("Remove");
+		QAction *changeAction = menu.addAction("Change color...");
+		QAction *optimizeAction = menu.addAction("Optimize for intensity");
+		QAction *selectedAction = menu.exec(event->screenPos());
+		if (selectedAction == removeAction)
+		{
+			graph->removeControlPoint(index);
+		}
+		else
+		{
+			if (selectedAction == changeAction)
+			{
+				// change control point color
+				auto c = QColorDialog::getColor(color, graph);
+				if (c.isValid())
+				{
+					color = c;
+					graph->changeControlPointColor(index, color);
+				}
+			}
+			else
+			{
+				if (selectedAction == optimizeAction)
+				{
+					// optimize for intensity
+					graph->optimizeForIntensity(index);
+				}
+			}
+		}
+		event->accept();
+	}
 
 protected:
-	//GraphWidget *graph;
 	QColor color;
 	int index;
 };

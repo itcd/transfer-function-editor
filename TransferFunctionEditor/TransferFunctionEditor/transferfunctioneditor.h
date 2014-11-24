@@ -23,14 +23,17 @@ public:
     explicit TransferFunctionEditor(QWidget *parent = 0);
     ~TransferFunctionEditor();
 
-    void loadXML(const char *filename)
+	/// open transfer function from Voreen XML
+    void openTransferFunctionFromVoreenXML(const char *filename)
     {
-        tinyxml2::XMLDocument doc;
-        //auto r = doc.LoadFile("../../Samples/CTknee/transfer_function/CT-Knee_spectrum_16_balance.tfi");
-        auto r = doc.LoadFile(filename);
+		tinyxml2::XMLDocument doc;
+		auto r = doc.LoadFile(filename);
 
-        if (r != tinyxml2::XML_NO_ERROR)
-            std::cout << "failed to open file" << std::endl;
+		if (r != tinyxml2::XML_NO_ERROR)
+		{
+			std::cout << "failed to open file " << filename << std::endl;
+			return;
+		}
 
         auto transFuncIntensity = doc.FirstChildElement("VoreenData")->FirstChildElement("TransFuncIntensity");
 
@@ -58,6 +61,64 @@ public:
         numIntensities = intensities.size();
     }
 
+	/// save transfer function as Voreen XML
+	void saveTransferFunctionToVoreenXML(const char *filename)
+	{
+		tinyxml2::XMLDocument doc;
+
+		auto declaration = doc.NewDeclaration();
+		doc.InsertEndChild(declaration);
+		auto voreenData = doc.NewElement("VoreenData");
+		voreenData->SetAttribute("version", 1);
+		auto transFuncIntensity = doc.NewElement("TransFuncIntensity");
+		transFuncIntensity->SetAttribute("type", "TransFuncIntensity");
+
+		// add domain
+		auto domain = doc.NewElement("domain");
+		domain->SetAttribute("x", 0);
+		domain->SetAttribute("y", 1);
+		transFuncIntensity->InsertEndChild(domain);
+
+		// add threshold
+		auto threshold = doc.NewElement("threshold");
+		threshold->SetAttribute("x", 0);
+		threshold->SetAttribute("y", 1);
+		transFuncIntensity->InsertEndChild(threshold);
+
+		// add Keys
+		auto size = intensities.size();
+		auto keys = doc.NewElement("Keys");
+		for (int i = 0; i < size; i++)
+		{
+			auto key = doc.NewElement("key");
+			key->SetAttribute("type", "TransFuncMappingKey");
+			auto intensity = doc.NewElement("intensity");
+			intensity->SetAttribute("value", intensities[i]);
+			auto split = doc.NewElement("split");
+			split->SetAttribute("value", "false");
+			auto colorL = doc.NewElement("colorL");
+			auto c = colors[i];
+			colorL->SetAttribute("r", static_cast<int>(c.r * 255));
+			colorL->SetAttribute("g", static_cast<int>(c.g * 255));
+			colorL->SetAttribute("b", static_cast<int>(c.b * 255));
+			colorL->SetAttribute("a", static_cast<int>(c.a * 255));
+			key->InsertEndChild(intensity);
+			key->InsertEndChild(split);
+			key->InsertEndChild(colorL);
+			keys->InsertEndChild(key);
+		}
+		transFuncIntensity->InsertEndChild(keys);
+
+		voreenData->InsertEndChild(transFuncIntensity);
+		doc.InsertEndChild(voreenData);
+
+		auto r = doc.SaveFile(filename);
+		if (r != tinyxml2::XML_NO_ERROR)
+		{
+			std::cout << "failed to save file " << filename << std::endl;
+		}
+	}
+
 private slots:
     void on_action_Open_Transfer_Function_triggered();
 
@@ -78,6 +139,7 @@ private:
     int numIntensities;
     std::vector<glm::vec4> colors;
     std::vector<float> intensities;
+	QString filename;
 };
 
 #endif // TRANSFERFUNCTIONEDITOR_H

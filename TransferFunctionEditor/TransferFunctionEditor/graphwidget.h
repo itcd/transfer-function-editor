@@ -55,10 +55,13 @@ public:
 
     void itemMoved();
 
-	// for use in TransferFunctionView
+	// interface for use in TransferFunctionView
 	virtual void removeControlPoint(int index){}
 	virtual void moveControlPoint(int index, double intensity, double opacity){}
 	virtual void addControlPoint(double intensity, double opacity){}
+	virtual void setSelectedIndex(int index){}
+	virtual void optimizeForIntensity(int index){}
+	virtual void changeControlPointColor(int index, QColor color){}
 
 public slots:
     void shuffle();

@@ -6,9 +6,15 @@ TransferFunctionEditor::TransferFunctionEditor(QWidget *parent) :
     ui(new Ui::TransferFunctionEditor)
 {
     ui->setupUi(this);
+
+	// add transfer function widget
 	ui->verticalLayout->addWidget(&tf);
 
-	loadXML("../../transferfuncs/nucleon.tfi");
+	// load default transfer function
+	filename = "../../transferfuncs/nucleon.tfi";
+	QByteArray array = filename.toLocal8Bit();
+	char* buffer = array.data();
+	openTransferFunctionFromVoreenXML(buffer);
 	tf.setTransferFunction(numIntensities, colors, intensities);
 	tf.drawTransferFunction();
 }
@@ -20,20 +26,17 @@ TransferFunctionEditor::~TransferFunctionEditor()
 
 void TransferFunctionEditor::on_action_Open_Transfer_Function_triggered()
 {
-	QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
-		"../../transferfuncs/nucleon.tfi",
-		tr("Voreen Transfer Function (*.tfi) ;; All (*.*)"));
-	std::cout << "size" << fileName.size() << std::endl;
-	if (fileName.size() > 0)
+	QString filename = QFileDialog::getOpenFileName(this, tr("Open File"), "../../transferfuncs/nucleon.tfi", tr("Voreen Transfer Function (*.tfi) ;; All (*.*)"));
+	std::cout << "size" << filename.size() << std::endl;
+	if (filename.size() > 0)
 	{
-		QByteArray array = fileName.toLocal8Bit();
+		QByteArray array = filename.toLocal8Bit();
 		char* buffer = array.data();
-
-		std::cout << buffer << " loaded" << std::endl;
+		std::cout << "Open transfer function from " << buffer << std::endl;
 		intensities.clear();
 		colors.clear();
-		loadXML(buffer);
-		std::cout << numIntensities << " " << intensities.size() << " " << colors.size() << std::endl;
+		openTransferFunctionFromVoreenXML(buffer);
+		//std::cout << numIntensities << " " << intensities.size() << " " << colors.size() << std::endl;
 		tf.setTransferFunction(numIntensities, colors, intensities);
 		tf.drawTransferFunction();
 	}
@@ -42,6 +45,15 @@ void TransferFunctionEditor::on_action_Open_Transfer_Function_triggered()
 void TransferFunctionEditor::on_action_Save_Transfer_Function_triggered()
 {
 	tf.getTransferFunction(numIntensities, colors, intensities);
+	QString filename = QFileDialog::getSaveFileName(this, tr("Save File"), "../../transferfuncs/save_as.tfi", tr("Voreen Transfer Function (*.tfi) ;; All (*.*)"));
+	std::cout << "size" << filename.size() << std::endl;
+	if (filename.size() > 0)
+	{
+		QByteArray array = filename.toLocal8Bit();
+		char* buffer = array.data();
+		std::cout << "Save transfer function to " << buffer << std::endl;
+		saveTransferFunctionToVoreenXML(buffer);
+	}
 }
 
 void TransferFunctionEditor::on_makeRampButton_clicked()

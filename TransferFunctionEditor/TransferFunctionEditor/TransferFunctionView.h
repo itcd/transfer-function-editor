@@ -28,14 +28,11 @@ public:
 		auto size = this->size();
 		auto tfScene = static_cast<QGraphicsScene*>(new TransferFunctionScene(this));
 		this->setScene(tfScene);
-		std::cout << "TransferFunctionView" << std::endl;
-		std::cout << "QGraphicsView size " << size.width() << " " << size.height() << std::endl;
+		std::cout << "TransferFunctionView size " << size.width() << " " << size.height() << "\t";
 		scene()->setSceneRect(0, 0, size.width(), size.height());
 		QRectF rect = this->sceneRect();
-		std::cout << "Scene Rect " << rect.left() << " " << rect.top()<<" "<<rect.width()<<" "<<rect.height() << std::endl;
+		std::cout << "sceneRect " << rect.left() << " " << rect.top()<<" "<<rect.width()<<" "<<rect.height() << std::endl;
 		scene()->clear();
-		//std::cout <<"tfScene "<< tfScene << std::endl;
-		//std::cout <<"scene() "<< scene() << std::endl;
 	}
 
 	void setTransferFunction(int numIntensities, std::vector<glm::vec4> colors, std::vector<float> intensities)
@@ -105,7 +102,6 @@ public:
 
 	virtual void addControlPoint(double intensity, double opacity)
 	{
-		std::cout<<"TransferFunctionView::addControlPoint\t";
 		intensity = intensity < 0 ? 0 : intensity;
 		intensity = intensity > 1 ? 1 : intensity;
 		opacity = opacity < 0 ? 0 : opacity;
@@ -116,7 +112,6 @@ public:
 		{
 			i++;
 		}
-		std::cout << "size="<<size<<" i="<<i<<std::endl;
 		if (i == 0)
 		{
 			intensities.insert(intensities.begin(), intensity);
@@ -129,7 +124,7 @@ public:
 			{
 				if (i > size)
 				{
-					std::cout << "out of range error i=" << i << " size=" << size << std::endl;
+					std::cout << "Error: index out of range. i=" << i << " size=" << size << std::endl;
 				}
 				intensities.push_back(intensity);
 				auto c = glm::vec4(colors[size - 1].r, colors[size - 1].g, colors[size - 1].b, opacity);
@@ -152,6 +147,28 @@ public:
 		}
 		numIntensities = intensities.size();
 		drawTransferFunction();
+	}
+
+	virtual void setSelectedIndex(int index)
+	{
+		this->selectedIndex = index;
+	}
+
+	virtual void optimizeForIntensity(int index)
+	{
+		// optimize for selected intensity
+	}
+
+	virtual void changeControlPointColor(int index, QColor color)
+	{
+		glm::vec4 c(color.red() / 255.f, color.green() / 255.f, color.blue() / 255.f, colors[index].a);
+		colors[index] = c;
+		drawTransferFunction();
+	}
+
+	int getSelectedIndex()
+	{
+		return selectedIndex;
 	}
 
 	void distributeVertically()
@@ -215,43 +232,26 @@ protected:
 	virtual void resizeEvent(QResizeEvent * event)
 	{
 		auto size = event->size();
-		std::cout << "resizeEvent" << std::endl;
-		std::cout << "QGraphicsView size " << size.width() << " " << size.height() << std::endl;
+		std::cout << "TransferFunctionView::resizeEvent size " << size.width() << " " << size.height() << "\t";
 		scene()->setSceneRect(0, 0, size.width(), size.height());
 		QRectF rect = this->sceneRect();
-		std::cout << "Scene Rect " << rect.left() << " " << rect.top() << " " << rect.width() << " " << rect.height() << std::endl;
+		std::cout << "sceneRect " << rect.left() << " " << rect.top() << " " << rect.width() << " " << rect.height() << std::endl;
 		drawTransferFunction();
 	}
 
 	virtual void drawBackground(QPainter *painter, const QRectF &rect)
 	{
-		//Q_UNUSED(rect);
-
-		//// Shadow
 		QRectF sceneRect = this->sceneRect();
-		//QRectF rightShadow(sceneRect.right(), sceneRect.top() + 5, 5, sceneRect.height());
-		//QRectF bottomShadow(sceneRect.left() + 5, sceneRect.bottom(), sceneRect.width(), 5);
-		//if (rightShadow.intersects(rect) || rightShadow.contains(rect))
-		//	painter->fillRect(rightShadow, Qt::darkGray);
-		//if (bottomShadow.intersects(rect) || bottomShadow.contains(rect))
-		//	painter->fillRect(bottomShadow, Qt::darkGray);
-
-		//// Fill
-		//QLinearGradient gradient(sceneRect.topLeft(), sceneRect.bottomRight());
-		//gradient.setColorAt(0, Qt::white);
-		//gradient.setColorAt(1, Qt::lightGray);
-		//painter->fillRect(rect.intersected(sceneRect), gradient);
-		//painter->setBrush(Qt::NoBrush);
 		painter->drawRect(sceneRect);
-		std::cout << "drawBackground sceneRect " << sceneRect.left() << " " << sceneRect.top() << " " << sceneRect.width() << " " << sceneRect.height() << std::endl;
 	}
 
 	virtual void timerEvent(QTimerEvent *event){}
 
-private:
+protected:
 	int numIntensities;
 	std::vector<glm::vec4> colors;
 	std::vector<float> intensities;
+	int selectedIndex;
 };
 //! [0]
 
