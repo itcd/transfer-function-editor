@@ -124,13 +124,13 @@ private slots:
 
     void on_action_Save_Transfer_Function_triggered();
 
-    void on_makeRampButton_clicked();
-
-    void on_makeLevelButton_clicked();
-
     void on_distributeHorizontallyButton_clicked();
 
     void on_distributeVerticallyButton_clicked();
+
+    void on_levelButton_clicked();
+
+    void on_diagonalButton_clicked();
 
 private:
     Ui::TransferFunctionEditor *ui;

@@ -42,8 +42,8 @@ public:
     QDockWidget *dockWidget;
     QWidget *dockWidgetContents;
     QHBoxLayout *horizontalLayout_2;
-    QPushButton *makeRampButton;
-    QPushButton *makeLevelButton;
+    QPushButton *diagonalButton;
+    QPushButton *levelButton;
     QPushButton *distributeHorizontallyButton;
     QPushButton *distributeVerticallyButton;
 
@@ -91,15 +91,15 @@ public:
         horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
-        makeRampButton = new QPushButton(dockWidgetContents);
-        makeRampButton->setObjectName(QStringLiteral("makeRampButton"));
+        diagonalButton = new QPushButton(dockWidgetContents);
+        diagonalButton->setObjectName(QStringLiteral("diagonalButton"));
 
-        horizontalLayout_2->addWidget(makeRampButton);
+        horizontalLayout_2->addWidget(diagonalButton);
 
-        makeLevelButton = new QPushButton(dockWidgetContents);
-        makeLevelButton->setObjectName(QStringLiteral("makeLevelButton"));
+        levelButton = new QPushButton(dockWidgetContents);
+        levelButton->setObjectName(QStringLiteral("levelButton"));
 
-        horizontalLayout_2->addWidget(makeLevelButton);
+        horizontalLayout_2->addWidget(levelButton);
 
         distributeHorizontallyButton = new QPushButton(dockWidgetContents);
         distributeHorizontallyButton->setObjectName(QStringLiteral("distributeHorizontallyButton"));
@@ -129,8 +129,8 @@ public:
         action_Open_Transfer_Function->setText(QApplication::translate("TransferFunctionEditor", "&Open Transfer Function...", 0));
         action_Save_Transfer_Function->setText(QApplication::translate("TransferFunctionEditor", "&Save Transfer Function...", 0));
         menu_File->setTitle(QApplication::translate("TransferFunctionEditor", "&File", 0));
-        makeRampButton->setText(QApplication::translate("TransferFunctionEditor", "make ramp", 0));
-        makeLevelButton->setText(QApplication::translate("TransferFunctionEditor", "make level", 0));
+        diagonalButton->setText(QApplication::translate("TransferFunctionEditor", "diagonal ramp", 0));
+        levelButton->setText(QApplication::translate("TransferFunctionEditor", "level", 0));
         distributeHorizontallyButton->setText(QApplication::translate("TransferFunctionEditor", "distribute horizontally", 0));
         distributeVerticallyButton->setText(QApplication::translate("TransferFunctionEditor", "distribute vertically", 0));
     } // retranslateUi

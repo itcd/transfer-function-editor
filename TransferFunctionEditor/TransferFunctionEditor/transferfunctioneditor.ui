@@ -78,16 +78,16 @@
       <number>0</number>
      </property>
      <item>
-      <widget class="QPushButton" name="makeRampButton">
+      <widget class="QPushButton" name="diagonalButton">
        <property name="text">
-        <string>make ramp</string>
+        <string>diagonal ramp</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="makeLevelButton">
+      <widget class="QPushButton" name="levelButton">
        <property name="text">
-        <string>make level</string>
+        <string>level</string>
        </property>
       </widget>
      </item>

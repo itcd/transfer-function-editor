@@ -56,16 +56,6 @@ void TransferFunctionEditor::on_action_Save_Transfer_Function_triggered()
 	}
 }
 
-void TransferFunctionEditor::on_makeRampButton_clicked()
-{
-	tf.makeRamp();
-}
-
-void TransferFunctionEditor::on_makeLevelButton_clicked()
-{
-	tf.makeLevel();
-}
-
 void TransferFunctionEditor::on_distributeHorizontallyButton_clicked()
 {
 	tf.distrubuteHorizontally();
@@ -74,4 +64,14 @@ void TransferFunctionEditor::on_distributeHorizontallyButton_clicked()
 void TransferFunctionEditor::on_distributeVerticallyButton_clicked()
 {
 	tf.distributeVertically();
+}
+
+void TransferFunctionEditor::on_levelButton_clicked()
+{
+	tf.makeLevel();
+}
+
+void TransferFunctionEditor::on_diagonalButton_clicked()
+{
+	tf.makeRamp();
 }
