@@ -55,7 +55,10 @@ public:
 
     void itemMoved();
 
+	// for use in TransferFunctionView
 	virtual void removeControlPoint(int index){}
+	virtual void moveControlPoint(int index, double intensity, double opacity){}
+	virtual void addControlPoint(double intensity, double opacity){}
 
 public slots:
     void shuffle();

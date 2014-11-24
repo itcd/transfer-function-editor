@@ -75,7 +75,7 @@ protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
-private:
+//private:
     QList<Edge *> edgeList;
     QPointF newPos;
     GraphWidget *graph;

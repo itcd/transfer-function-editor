@@ -91,6 +91,20 @@
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QPushButton" name="distributeHorizontallyButton">
+       <property name="text">
+        <string>distribute horizontally</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="distributeVerticallyButton">
+       <property name="text">
+        <string>distribute vertically</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </widget>
   </widget>

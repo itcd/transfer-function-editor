@@ -34,8 +34,8 @@ public:
 		QRectF rect = this->sceneRect();
 		std::cout << "Scene Rect " << rect.left() << " " << rect.top()<<" "<<rect.width()<<" "<<rect.height() << std::endl;
 		scene()->clear();
-		std::cout <<"tfScene "<< tfScene << std::endl;
-		std::cout <<"scene() "<< scene() << std::endl;
+		//std::cout <<"tfScene "<< tfScene << std::endl;
+		//std::cout <<"scene() "<< scene() << std::endl;
 	}
 
 	void setTransferFunction(int numIntensities, std::vector<glm::vec4> colors, std::vector<float> intensities)
@@ -43,6 +43,13 @@ public:
 		this->numIntensities = numIntensities;
 		this->colors = colors;
 		this->intensities = intensities;
+	}
+
+	void getTransferFunction(int &numIntensities, std::vector<glm::vec4> &colors, std::vector<float> &intensities)
+	{
+		numIntensities = this->numIntensities;
+		colors = this->colors;
+		intensities = this->intensities;
 	}
 
 	void drawTransferFunction()
@@ -66,10 +73,141 @@ public:
 
 	virtual void removeControlPoint(int index)
 	{
-		std::cout << "removeControlPoint" << std::endl;
+		std::cout << "removeControlPoint size before " << numIntensities << " after";
 		colors.erase(colors.begin() + index);
 		intensities.erase(intensities.begin() + index);
 		numIntensities = intensities.size();
+		drawTransferFunction();
+		std::cout << numIntensities << std::endl;
+	}
+
+	virtual void moveControlPoint(int index, double intensity, double opacity)
+	{
+		intensity = intensity < 0 ? 0 : intensity;
+		intensity = intensity > 1 ? 1 : intensity;
+		opacity = opacity < 0 ? 0 : opacity;
+		opacity = opacity > 1 ? 1 : opacity;
+		intensities[index] = intensity;
+		colors[index].a = opacity;
+		for (int i = 0; i < intensities.size(); i++)
+		{
+			if (i < index && intensities[index] < intensities[i])
+			{
+				intensities[i] = intensities[index];
+			}
+			if (i > index && intensities[index] > intensities[i])
+			{
+				intensities[i] = intensities[index];
+			}
+		}
+		drawTransferFunction();
+	}
+
+	virtual void addControlPoint(double intensity, double opacity)
+	{
+		std::cout<<"TransferFunctionView::addControlPoint\t";
+		intensity = intensity < 0 ? 0 : intensity;
+		intensity = intensity > 1 ? 1 : intensity;
+		opacity = opacity < 0 ? 0 : opacity;
+		opacity = opacity > 1 ? 1 : opacity;
+		auto size = intensities.size();
+		int i = 0;
+		while (i < size && intensities[i] < intensity)
+		{
+			i++;
+		}
+		std::cout << "size="<<size<<" i="<<i<<std::endl;
+		if (i == 0)
+		{
+			intensities.insert(intensities.begin(), intensity);
+			auto c = glm::vec4(colors[0].r, colors[0].g, colors[0].b, opacity);
+			colors.insert(colors.begin(), c);
+		} 
+		else
+		{
+			if (i >= size)
+			{
+				if (i > size)
+				{
+					std::cout << "out of range error i=" << i << " size=" << size << std::endl;
+				}
+				intensities.push_back(intensity);
+				auto c = glm::vec4(colors[size - 1].r, colors[size - 1].g, colors[size - 1].b, opacity);
+				colors.push_back(c);
+			}
+			else
+			{
+				auto c0 = colors[i - 1];
+				auto c1 = colors[i];
+				auto intensity0 = intensities[i - 1];
+				auto intensity1 = intensities[i];
+				auto fraction = (intensity - intensity0) / (intensity1 - intensity0);
+				auto r = c0.r + (c1.r - c0.r) * fraction;
+				auto g = c0.g + (c1.g - c0.g) * fraction;
+				auto b = c0.b + (c1.b - c0.b) * fraction;
+				auto c = glm::vec4(r, g, b, opacity);
+				intensities.insert(intensities.begin() + i, intensity);
+				colors.insert(colors.begin() + i, c);
+			}
+		}
+		numIntensities = intensities.size();
+		drawTransferFunction();
+	}
+
+	void distributeVertically()
+	{
+		auto size = colors.size();
+		double min = 1, max = 0;
+		for (int i = 0; i < size; i++)
+		{
+			if (colors[i].a < min)
+			{
+				min = colors[i].a;
+			}
+			if (colors[i].a > max)
+			{
+				max = colors[i].a;
+			}
+		}
+		double range = max - min;
+		double interval = range / (size - 1);
+		for (int i = 0; i < size; i++)
+		{
+			colors[i].a = min + i * interval;
+		}
+		drawTransferFunction();
+	}
+
+	void distrubuteHorizontally()
+	{
+		auto size = intensities.size();
+		double range = intensities[size - 1] - intensities[0];
+		double interval = range / (size - 1);
+		for (int i = 0; i < size; i++)
+		{
+			intensities[i] = intensities[0] + i * interval;
+		}
+		drawTransferFunction();
+	}
+
+	void makeRamp()
+	{
+		auto size = colors.size();
+		for (int i = 0; i < size; i++)
+		{
+			colors[i].a = intensities[i];
+		}
+		drawTransferFunction();
+	}
+
+	void makeLevel()
+	{
+		auto size = colors.size();
+		double interval = 1.0 / size;
+		for (int i = 0; i < size; i++)
+		{
+			colors[i].a = interval;
+		}
 		drawTransferFunction();
 	}
 

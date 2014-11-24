@@ -58,27 +58,6 @@ public:
         numIntensities = intensities.size();
     }
 
-	void openTransferFunction()
-	{
-		QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
-			"../../transferfuncs/nucleon.tfi",
-			tr("Voreen Transfer Function (*.tfi) ;; All (*.*)"));
-		std::cout << "size" << fileName.size() << std::endl;
-		if (fileName.size() > 0)
-		{
-			QByteArray array = fileName.toLocal8Bit();
-			char* buffer = array.data();
-
-			std::cout << buffer << " loaded" << std::endl;
-			intensities.clear();
-			colors.clear();
-			loadXML(buffer);
-			std::cout << numIntensities << " " << intensities.size() << " " << colors.size() << std::endl;
-			widget.setTransferFunction(numIntensities, colors, intensities);
-			widget.drawTransferFunction();
-		}
-	}
-
 private slots:
     void on_action_Open_Transfer_Function_triggered();
 
@@ -88,10 +67,14 @@ private slots:
 
     void on_makeLevelButton_clicked();
 
+    void on_distributeHorizontallyButton_clicked();
+
+    void on_distributeVerticallyButton_clicked();
+
 private:
     Ui::TransferFunctionEditor *ui;
 
-    TransferFunctionView widget;
+    TransferFunctionView tf;
     int numIntensities;
     std::vector<glm::vec4> colors;
     std::vector<float> intensities;

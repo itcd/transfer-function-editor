@@ -44,6 +44,8 @@ public:
     QHBoxLayout *horizontalLayout_2;
     QPushButton *makeRampButton;
     QPushButton *makeLevelButton;
+    QPushButton *distributeHorizontallyButton;
+    QPushButton *distributeVerticallyButton;
 
     void setupUi(QMainWindow *TransferFunctionEditor)
     {
@@ -99,6 +101,16 @@ public:
 
         horizontalLayout_2->addWidget(makeLevelButton);
 
+        distributeHorizontallyButton = new QPushButton(dockWidgetContents);
+        distributeHorizontallyButton->setObjectName(QStringLiteral("distributeHorizontallyButton"));
+
+        horizontalLayout_2->addWidget(distributeHorizontallyButton);
+
+        distributeVerticallyButton = new QPushButton(dockWidgetContents);
+        distributeVerticallyButton->setObjectName(QStringLiteral("distributeVerticallyButton"));
+
+        horizontalLayout_2->addWidget(distributeVerticallyButton);
+
         dockWidget->setWidget(dockWidgetContents);
         TransferFunctionEditor->addDockWidget(static_cast<Qt::DockWidgetArea>(8), dockWidget);
 
@@ -119,6 +131,8 @@ public:
         menu_File->setTitle(QApplication::translate("TransferFunctionEditor", "&File", 0));
         makeRampButton->setText(QApplication::translate("TransferFunctionEditor", "make ramp", 0));
         makeLevelButton->setText(QApplication::translate("TransferFunctionEditor", "make level", 0));
+        distributeHorizontallyButton->setText(QApplication::translate("TransferFunctionEditor", "distribute horizontally", 0));
+        distributeVerticallyButton->setText(QApplication::translate("TransferFunctionEditor", "distribute vertically", 0));
     } // retranslateUi
 
 };
