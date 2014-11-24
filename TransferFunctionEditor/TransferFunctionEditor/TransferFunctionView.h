@@ -9,7 +9,7 @@
 #include <QSharedPointer>
 #include <glm/glm.hpp>
 
-#include "for_volume_renderer.h"
+#include "import_volume_renderer.h"
 
 #include "graphwidget.h"
 #include "node.h"

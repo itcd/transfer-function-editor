@@ -5,7 +5,7 @@
 #include <iostream>
 #include <QFileDialog>
 
-#include "for_volume_renderer.h"
+#include "import_volume_renderer.h"
 
 #include "glm/glm.hpp"
 #include "tinyxml2.h"
@@ -123,10 +123,10 @@ public:
 	}
 
 #ifdef USED_BY_VOLUME_RENDERER
-	void init(VolumeRenderer volumeRenderer)
+	void init(VolumeRenderer &volumeRenderer)
 	{
 		std::cout << "TransferFunctionEditor::Init" << std::endl;
-		tf.transfer_function = &(volumeRenderer.renderer->transferFunction);
+		tf.transfer_function = &volumeRenderer.renderer->transferFunction;
 	}
 #endif // USED_BY_VOLUME_RENDERER
 

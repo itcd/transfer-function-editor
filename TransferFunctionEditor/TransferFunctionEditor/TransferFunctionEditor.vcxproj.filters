@@ -68,12 +68,6 @@
     <ClCompile Include="tinyxml2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_TransferFunctionView.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_TransferFunctionView.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="transferfunctioneditor.h">
@@ -114,7 +108,10 @@
     <ClInclude Include="TransferFunctionScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="for_volume_renderer.h">
+    <ClInclude Include="import_volume_renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="import_transfer_function_editor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
