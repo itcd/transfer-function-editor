@@ -114,5 +114,8 @@
     <ClInclude Include="TransferFunctionScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="for_volume_renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
