@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup>
+    <PostBuildEvent>
+      <Command>
+	  xcopy /f /y "$(QTDIR)\bin\Qt5Core*.dll" "$(OutDir)"
+	  xcopy /f /y "$(QTDIR)\bin\Qt5Gui*.dll" "$(OutDir)"
+	  xcopy /f /y "$(QTDIR)\bin\Qt5Widgets*.dll" "$(OutDir)"
+	  xcopy /f /y "$(QTDIR)\bin\icu*.dll" "$(OutDir)"
+	  %(Command)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup />
+</Project>
