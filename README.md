@@ -5,6 +5,7 @@ The code was successfully compiled with Visual Studio 2015 and Qt 5.5.
 
 ![editor.png](https://bitbucket.org/repo/kGLpoM/images/185556157-editor.png)
 
+A sample transfer function file is shown as follows:
 
 ```
 #!xml
