@@ -7,7 +7,7 @@ The code was successfully compiled with Visual Studio 2015 and Qt 5.5.
 
 
 ```
-#!XML
+#!xml
 
 <?xml version="1.0" ?>
 <VoreenData version="1">
