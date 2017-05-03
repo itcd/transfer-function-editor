@@ -187,3 +187,6 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
+
+######## Visual Studio 2015
+*.VC.db

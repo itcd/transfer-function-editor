@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'transferfunctioneditor.ui'
 **
-** Created by: Qt User Interface Compiler version 5.5.0
+** Created by: Qt User Interface Compiler version 5.8.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -125,14 +125,14 @@ public:
 
     void retranslateUi(QMainWindow *TransferFunctionEditor)
     {
-        TransferFunctionEditor->setWindowTitle(QApplication::translate("TransferFunctionEditor", "Transfer Function Editor", 0));
-        action_Open_Transfer_Function->setText(QApplication::translate("TransferFunctionEditor", "&Open Transfer Function...", 0));
-        action_Save_Transfer_Function->setText(QApplication::translate("TransferFunctionEditor", "&Save Transfer Function...", 0));
-        menu_File->setTitle(QApplication::translate("TransferFunctionEditor", "&File", 0));
-        diagonalButton->setText(QApplication::translate("TransferFunctionEditor", "diagonal ramp", 0));
-        levelButton->setText(QApplication::translate("TransferFunctionEditor", "level", 0));
-        distributeHorizontallyButton->setText(QApplication::translate("TransferFunctionEditor", "distribute horizontally", 0));
-        distributeVerticallyButton->setText(QApplication::translate("TransferFunctionEditor", "distribute vertically", 0));
+        TransferFunctionEditor->setWindowTitle(QApplication::translate("TransferFunctionEditor", "Transfer Function Editor", Q_NULLPTR));
+        action_Open_Transfer_Function->setText(QApplication::translate("TransferFunctionEditor", "&Open Transfer Function...", Q_NULLPTR));
+        action_Save_Transfer_Function->setText(QApplication::translate("TransferFunctionEditor", "&Save Transfer Function...", Q_NULLPTR));
+        menu_File->setTitle(QApplication::translate("TransferFunctionEditor", "&File", Q_NULLPTR));
+        diagonalButton->setText(QApplication::translate("TransferFunctionEditor", "diagonal ramp", Q_NULLPTR));
+        levelButton->setText(QApplication::translate("TransferFunctionEditor", "level", Q_NULLPTR));
+        distributeHorizontallyButton->setText(QApplication::translate("TransferFunctionEditor", "distribute horizontally", Q_NULLPTR));
+        distributeVerticallyButton->setText(QApplication::translate("TransferFunctionEditor", "distribute vertically", Q_NULLPTR));
     } // retranslateUi
 
 };
